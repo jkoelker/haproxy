@@ -2589,6 +2589,8 @@ static void h2_process_demux(struct h2c *h2c)
 
 		case H2_FT_HEADERS:
 			if (h2c->st0 == H2_CS_FRAME_P) {
+				if (!h2s)
+					goto fail;
 				if (h2c->flags & H2_CF_IS_BACK)
 					tmp_h2s = h2c_bck_handle_headers(h2c, h2s);
 				else
